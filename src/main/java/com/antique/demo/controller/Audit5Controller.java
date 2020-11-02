@@ -4,7 +4,7 @@ package com.antique.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.antique.demo.bean.*;
 import com.antique.demo.service.*;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +23,29 @@ import java.util.List;
 
 @Controller
 public class Audit5Controller {
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     AuditService auditService;
-    @Autowired
+    final
     AuditSpecialistService auditSpecialistService;
-    @Autowired
+    final
     AuditCertificateService auditCertificateService;
-    @Autowired
+    final
     AuditLocusService locusService;
+    final
+    UploadImageService uploadImageService;
+    @Autowired
+    public Audit5Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, AuditLocusService locusService, UploadImageService uploadImageService) {
+        this.browseService = browseService;
+        this.auditService = auditService;
+        this.auditSpecialistService = auditSpecialistService;
+        this.auditCertificateService = auditCertificateService;
+        this.locusService = locusService;
+        this.uploadImageService = uploadImageService;
+    }
 
-        //证书录入首页
+    //证书录入首页
         @RequestMapping("/antique/audit5/{pageNum}")
         public String indexPage4(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             PageHelper.startPage(pageNum, 4);
@@ -98,7 +109,7 @@ public class Audit5Controller {
     public String bit_trialImgInfo(Locus locus,@RequestParam("uploadfile") MultipartFile uploadfile[]) throws IOException {
     for(int i = 0;i<uploadfile.length;i++){
         if(uploadfile[i]!=null&&!uploadfile[i].isEmpty()) {
-                String newFileName = UploadImage.uploadImg(uploadfile[i]);
+                String newFileName = uploadImageService.uploadImg(uploadfile[i]);
                 if(i == 0)
                     locus.setAntique_locus_img1(newFileName);
                 else if(i == 1)

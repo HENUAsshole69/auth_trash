@@ -5,7 +5,7 @@ import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Company;
 import com.antique.demo.bean.Individual;
 import com.antique.demo.service.*;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,28 +19,43 @@ import java.io.IOException;
 @Controller
 public class newAntiqueController {
     private Antique antique;
-    @Autowired
+    final
     AuditCertificateService auditCertificateService;
-    @Autowired
+    final
     AuditLocusService auditLocusService;
-    @Autowired
+    final
     AuditService auditService;
-    @Autowired
+    final
     AuditSpecialistService auditSpecialistService;
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     InfoService infoService;
-    @Autowired
+    final
     IndividualService individualService;
-    @Autowired
+    final
     CompanyService companyService;
+    final
+    UploadImageService uploadImageService;
+    @Autowired
+    public newAntiqueController(AuditCertificateService auditCertificateService, AuditLocusService auditLocusService, AuditService auditService, AuditSpecialistService auditSpecialistService, BrowseService browseService, InfoService infoService, IndividualService individualService, CompanyService companyService, UploadImageService uploadImageService) {
+        this.auditCertificateService = auditCertificateService;
+        this.auditLocusService = auditLocusService;
+        this.auditService = auditService;
+        this.auditSpecialistService = auditSpecialistService;
+        this.browseService = browseService;
+        this.infoService = infoService;
+        this.individualService = individualService;
+        this.companyService = companyService;
+        this.uploadImageService = uploadImageService;
+    }
+
     @RequestMapping("/antique/info")
     @ResponseBody
     public String newAntique(Antique antique,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         this.antique =  antique;
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             antique.setAntique_img(newFileName);
         }
         return JSON.toJSONString("success");

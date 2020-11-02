@@ -5,7 +5,7 @@ import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Check;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.BrowseService;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,20 @@ import java.util.List;
 
 @Controller
 public class Audit3Controller {
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     AuditService auditService;
-        //初步鉴定页面首页
+    final
+    UploadImageService uploadImageService;
+    @Autowired
+    public Audit3Controller(BrowseService browseService, AuditService auditService, UploadImageService uploadImageService) {
+        this.browseService = browseService;
+        this.auditService = auditService;
+        this.uploadImageService = uploadImageService;
+    }
+
+    //初步鉴定页面首页
         @RequestMapping("/antique/audit3/{pageNum}")
         public String indexPage3(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             PageHelper.startPage(pageNum, 4);
@@ -51,7 +60,7 @@ public class Audit3Controller {
     @ResponseBody
     public String reCheck3(Check check,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             System.out.println(newFileName);
             check.setAntique_specialistImg(newFileName);
         }

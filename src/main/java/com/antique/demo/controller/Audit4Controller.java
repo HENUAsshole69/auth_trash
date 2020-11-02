@@ -7,7 +7,7 @@ import com.antique.demo.bean.CheckSpecialist;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.AuditSpecialistService;
 import com.antique.demo.service.BrowseService;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,23 @@ import java.util.List;
 
 @Controller
 public class Audit4Controller {
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     AuditService auditService;
-    @Autowired
+    final
     AuditSpecialistService auditSpecialistService;
-        //多维页面首页
+    final
+    UploadImageService uploadImageService;
+@Autowired
+    public Audit4Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, UploadImageService uploadImageService) {
+        this.browseService = browseService;
+        this.auditService = auditService;
+        this.auditSpecialistService = auditSpecialistService;
+        this.uploadImageService = uploadImageService;
+    }
+
+    //多维页面首页
         @RequestMapping("/antique/audit4/{pageNum}")
         public String indexPage4(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             List<Antique> antiques = null;
@@ -81,7 +91,7 @@ public class Audit4Controller {
     public void reCheck4_1_1(CheckSpecialist checkSpecialist, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
         System.out.println(checkSpecialist);
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             checkSpecialist.setAntique_aspecialist_img(newFileName);
         }
         CheckSpecialist cs =  auditSpecialistService.selectSpecialistCheckById(Integer.valueOf(checkSpecialist.getAntique_number_d()));
@@ -96,7 +106,7 @@ public class Audit4Controller {
     public void reCheck4_1_11(CheckSpecialist checkSpecialist, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
         System.out.println(checkSpecialist);
             if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             checkSpecialist.setAntique_tspecialist_img(newFileName);
         }
         CheckSpecialist cs =  auditSpecialistService.selectSpecialistCheckById(Integer.valueOf(checkSpecialist.getAntique_number_d()));
@@ -110,7 +120,7 @@ public class Audit4Controller {
     @RequestMapping("/antique/audit4_1_2/specialistCheck")
     public void reCheck4_1_12(CheckSpecialist checkSpecialist, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
             if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             checkSpecialist.setAntique_rspecialist_img(newFileName);
         }
         CheckSpecialist cs =  auditSpecialistService.selectSpecialistCheckById(Integer.valueOf(checkSpecialist.getAntique_number_d()));

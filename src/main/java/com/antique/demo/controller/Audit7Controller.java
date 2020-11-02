@@ -6,7 +6,7 @@ import com.antique.demo.bean.Certificate;
 import com.antique.demo.bean.Check;
 import com.antique.demo.bean.Info;
 import com.antique.demo.service.*;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +24,29 @@ import java.util.List;
 
 @Controller
 public class Audit7Controller {
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     AuditService auditService;
-    @Autowired
+    final
     AuditSpecialistService auditSpecialistService;
-    @Autowired
+    final
     AuditCertificateService auditCertificateService;
-    @Autowired
+    final
     InfoService infoService;
-        //证书录入首页
+    final
+    UploadImageService uploadImageService;
+@Autowired
+    public Audit7Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, InfoService infoService, UploadImageService uploadImageService) {
+        this.browseService = browseService;
+        this.auditService = auditService;
+        this.auditSpecialistService = auditSpecialistService;
+        this.auditCertificateService = auditCertificateService;
+        this.infoService = infoService;
+        this.uploadImageService = uploadImageService;
+    }
+
+    //证书录入首页
         @RequestMapping("/antique/audit7/{pageNum}")
         public String indexPage7(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             PageHelper.startPage(pageNum, 4);
@@ -77,7 +89,7 @@ public class Audit7Controller {
         @RequestMapping("/antique/audit7/certificateInfoInsert")
         public void certificateInfoInsert(Certificate certificate,@RequestParam("uploadfile") MultipartFile uploadfile,HttpServletResponse response) throws IOException {
             if(uploadfile!=null&&!uploadfile.isEmpty()) {
-                String newFileName = UploadImage.uploadImg(uploadfile);
+                String newFileName = uploadImageService.uploadImg(uploadfile);
                 certificate.setAntique_certificate_file(newFileName);
             }
             auditCertificateService.updateCertificateInfo(certificate);
@@ -97,7 +109,7 @@ public class Audit7Controller {
     @RequestMapping("/antique/audit7/InfoInsert")
     public void InfoInsert(Info info, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             info.setAntique_infoImg(newFileName);
         }
         infoService.insertInfo(info);

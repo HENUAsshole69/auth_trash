@@ -10,7 +10,7 @@ import com.antique.demo.service.AuditCertificateService;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.AuditSpecialistService;
 import com.antique.demo.service.BrowseService;
-import com.antique.demo.util.UploadImage;
+import com.antique.demo.util.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +29,26 @@ import java.util.List;
 
 @Controller
 public class Audit6Controller {
-    @Autowired
+    final
     BrowseService browseService;
-    @Autowired
+    final
     AuditService auditService;
-    @Autowired
+    final
     AuditSpecialistService auditSpecialistService;
-    @Autowired
+    final
     AuditCertificateService auditCertificateService;
-        //证书录入首页
+    final
+    UploadImageService uploadImageService;
+    @Autowired
+    public Audit6Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, UploadImageService uploadImageService) {
+        this.browseService = browseService;
+        this.auditService = auditService;
+        this.auditSpecialistService = auditSpecialistService;
+        this.auditCertificateService = auditCertificateService;
+        this.uploadImageService = uploadImageService;
+    }
+
+    //证书录入首页
         @RequestMapping("/antique/audit6/{pageNum}")
         public String indexPage4(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             PageHelper.startPage(pageNum, 4);
@@ -86,7 +97,7 @@ public class Audit6Controller {
     @ResponseBody
     public String certificateShow(Certificate certificate, @RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = UploadImage.uploadImg(uploadfile);
+            String newFileName = uploadImageService.uploadImg(uploadfile);
             certificate.setAntique_certificate_img(newFileName);
         }
         auditCertificateService.updateCertificate(certificate);
