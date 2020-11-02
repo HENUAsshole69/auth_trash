@@ -6,7 +6,7 @@ import com.antique.demo.bean.Certificate;
 import com.antique.demo.bean.Check;
 import com.antique.demo.bean.Info;
 import com.antique.demo.service.*;
-import com.antique.demo.util.UploadImageService;
+import com.antique.demo.service.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,7 @@ import com.antique.demo.service.AuditCertificateService;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.AuditSpecialistService;
 import com.antique.demo.service.BrowseService;
-import com.antique.demo.util.UploadImageService;
+import com.antique.demo.service.UploadImageService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

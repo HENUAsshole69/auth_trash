@@ -5,7 +5,7 @@ import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Company;
 import com.antique.demo.bean.Individual;
 import com.antique.demo.service.*;
-import com.antique.demo.util.UploadImageService;
+import com.antique.demo.service.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-public class newAntiqueController {
+public class AntiqueCreationController {
     private Antique antique;
     final
     AuditCertificateService auditCertificateService;
@@ -38,7 +38,7 @@ public class newAntiqueController {
     final
     UploadImageService uploadImageService;
     @Autowired
-    public newAntiqueController(AuditCertificateService auditCertificateService, AuditLocusService auditLocusService, AuditService auditService, AuditSpecialistService auditSpecialistService, BrowseService browseService, InfoService infoService, IndividualService individualService, CompanyService companyService, UploadImageService uploadImageService) {
+    public AntiqueCreationController(AuditCertificateService auditCertificateService, AuditLocusService auditLocusService, AuditService auditService, AuditSpecialistService auditSpecialistService, BrowseService browseService, InfoService infoService, IndividualService individualService, CompanyService companyService, UploadImageService uploadImageService) {
         this.auditCertificateService = auditCertificateService;
         this.auditLocusService = auditLocusService;
         this.auditService = auditService;

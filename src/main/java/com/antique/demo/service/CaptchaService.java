@@ -1,4 +1,7 @@
-package com.antique.demo.util;
+package com.antique.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -6,75 +9,37 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Random;
 
-/**
- * 验证码生成器
- *
- */
-public class SCaptcha {
+@Service
+public class CaptchaService {
     // 图片的宽度。
-    private int width = 120;
+    private final int width = 120;
     // 图片的高度。
-    private int height = 40;
+    private final int height = 40;
     // 验证码字符个数
-    private int codeCount = 4;
+    private final int codeCount = 4;
     // 验证码干扰线数
-    private int lineCount = 50;
-    // 验证码
-    private String code = null;
-    // 验证码图片Buffer
-    private BufferedImage buffImg = null;
+    private final int lineCount = 50;
 
-    private char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+    private final char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
             'I', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
             'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     // 生成随机数
-    private Random random = new Random();
+    private Random random;
 
-    public SCaptcha() {
-        this.createCode();
+    @Autowired
+    public CaptchaService() {
+        this.random = new Random();
     }
 
-    /**
-     *
-     * @param width
-     *            图片宽
-     * @param height
-     *            图片高
-     */
-    public SCaptcha(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.createCode();
-    }
-
-    /**
-     *
-     * @param width
-     *            图片宽
-     * @param height
-     *            图片高
-     * @param codeCount
-     *            字符个数
-     * @param lineCount
-     *            干扰线条数
-     */
-    public SCaptcha(int width, int height, int codeCount, int lineCount) {
-        this.width = width;
-        this.height = height;
-        this.codeCount = codeCount;
-        this.lineCount = lineCount;
-        this.createCode();
-    }
-
-    public void createCode() {
+    public CaptchaEntry createCode() {
         int codeX = 0;
         int fontHeight = 0;
         fontHeight = height - 5;// 字体的高度
         codeX = width / (codeCount+3);// 每个字符的宽度
 
         // 图像buffer
-        buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = buffImg.createGraphics();
 
         // 将图像填充为白色
@@ -108,7 +73,7 @@ public class SCaptcha {
                     getRandomNumber(height / 2) + 25);
             randomCode.append(strRand);
         }
-        code = randomCode.toString();
+        return new CaptchaEntry(randomCode.toString(),buffImg);
     }
 
     /** 获取随机颜色 */
@@ -124,26 +89,9 @@ public class SCaptcha {
         return random.nextInt(number);
     }
 
-    public void write(String path) throws IOException {
-        OutputStream sos = new FileOutputStream(path);
-        this.write(sos);
-    }
-
-    public void write(OutputStream sos) throws IOException {
-        ImageIO.write(buffImg, "png", sos);
-        sos.close();
-    }
-
-    public BufferedImage getBuffImg() {
-        return buffImg;
-    }
-
-    public String getCode() {
-        return code;
-    }
 
     /** 字体样式类 */
-    class ImgFontByte {
+    private static class ImgFontByte {
         public Font getFont(int fontHeight) {
             try {
                 File file = new File("classpath:font");
@@ -153,6 +101,25 @@ public class SCaptcha {
             } catch (Exception e) {
                 return new Font("Arial", Font.PLAIN, fontHeight);
             }
+        }
+    }
+
+    public static class CaptchaEntry{
+        private final String code;
+        private final BufferedImage image;
+
+        CaptchaEntry(String code, BufferedImage image) {
+            this.code = code;
+            this.image = image;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void writeImg(OutputStream sos) throws IOException {
+            ImageIO.write(this.image, "png", sos);
+            sos.close();
         }
     }
 }

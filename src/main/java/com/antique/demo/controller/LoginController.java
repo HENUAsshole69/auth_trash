@@ -1,7 +1,8 @@
 package com.antique.demo.controller;
 
 
-import com.antique.demo.util.SCaptcha;
+import com.antique.demo.service.CaptchaService;
+import lombok.val;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -17,10 +18,18 @@ import java.io.IOException;
 
 
 @Controller
-public class loginController {
+public class LoginController {
+
+    private final
+    CaptchaService captchaService;
 
     private int temp = 0;//用来计数显示前台错误信息
     private String conCode;
+
+    public LoginController(CaptchaService captchaService) {
+        this.captchaService = captchaService;
+    }
+
     public void setConcode(String conCode){
         this.conCode = conCode;
     }
@@ -64,19 +73,19 @@ public class loginController {
             return "login";
     }
     @RequestMapping("/SCaptchaServlet")//验证码图片
-    public void Scaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 设置响应的类型格式为图片格式
         response.setContentType("image/jpeg");
         // 禁止图像缓存。
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
-        SCaptcha instance = new SCaptcha();
+        val entry = captchaService.createCode();
         HttpSession session = request.getSession();
-        setConcode(instance.getCode());//获取随机生成的验证码
+        setConcode(entry.getCode());//获取随机生成的验证码
         Cookie cookie = new Cookie("JSESSIONID", session.getId());
         cookie.setMaxAge(1800);
         response.addCookie(cookie);
-        instance.write(response.getOutputStream());
+        entry.writeImg(response.getOutputStream());
     }
 }
