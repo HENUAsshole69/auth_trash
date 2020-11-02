@@ -7,6 +7,8 @@ import com.antique.demo.service.*;
 import com.antique.demo.service.ImageUploadService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,7 @@ public class Audit5Controller {
     AuditLocusService locusService;
     final
     ImageUploadService imageUploadService;
+    Logger logger = LoggerFactory.getLogger(Audit5Controller.class);
     @Autowired
     public Audit5Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, AuditLocusService locusService, ImageUploadService imageUploadService) {
         this.browseService = browseService;
@@ -100,7 +103,7 @@ public class Audit5Controller {
     @RequestMapping("/antique/audit5/bit_trialInfo")
     @ResponseBody
     public String bit_trialInfo(Locus locus){
-        System.out.println(locus);
+
         locusService.updateLocusInfo(locus);
         return JSON.toJSONString("success");
     }

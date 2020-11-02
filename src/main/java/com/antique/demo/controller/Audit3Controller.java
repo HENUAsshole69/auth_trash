@@ -3,11 +3,14 @@ package com.antique.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Check;
+import com.antique.demo.realm.UserRealm;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.BrowseService;
 import com.antique.demo.service.ImageUploadService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,7 @@ public class Audit3Controller {
     BrowseService browseService;
     final
     AuditService auditService;
+    Logger logger = LoggerFactory.getLogger(Audit3Controller.class);
     final
     ImageUploadService imageUploadService;
     @Autowired
@@ -61,7 +65,7 @@ public class Audit3Controller {
     public String reCheck3(Check check,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
             String newFileName = imageUploadService.uploadImg(uploadfile);
-            System.out.println(newFileName);
+            logger.info(newFileName);
             check.setAntique_specialistImg(newFileName);
         }
         auditService.updateCheckSpecialist(check);
@@ -72,8 +76,6 @@ public class Audit3Controller {
     public String reCheck3(String antique_number,Model model) {
         Antique antique = browseService.selectAntiqueById(Integer.valueOf(antique_number));
         Check check = auditService.selectReCheckById(Integer.valueOf(antique_number));
-        System.out.println(antique);
-        System.out.println(check);
         model.addAttribute("antique",antique);
         model.addAttribute("check",check);
         return "antique_audit_3.1";

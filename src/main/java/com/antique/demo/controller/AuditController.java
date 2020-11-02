@@ -6,6 +6,8 @@ import com.antique.demo.service.AuditService;
 import com.antique.demo.service.BrowseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ public class AuditController {
     BrowseService browseService;
     @Autowired
     AuditService auditService;
+    Logger logger = LoggerFactory.getLogger(AuditController.class);
     @RequestMapping("/antique/audit/{pageNum}")
     public String indexPage1(@PathVariable("pageNum") int pageNum, Model model,String UserOrAntiqueName){
         PageHelper.startPage(pageNum, 4);
@@ -41,13 +44,13 @@ public class AuditController {
     }
     @RequestMapping("/antique/audit/recheckYes")
     public void reCheck(String recheck,HttpServletResponse response) throws IOException {
-        System.out.println(recheck);
+        logger.info(recheck);
         auditService.updateReCheckInfo(Integer.valueOf(recheck));
         response.sendRedirect("/antique/audit/1");
     }
     @RequestMapping("/antique/audit/recheckNo")
     public void reCheckNo(String recheck,HttpServletResponse response) throws IOException {
-        System.out.println(recheck);
+        logger.info(recheck);
         auditService.updateReCheckInfoNo(Integer.valueOf(recheck));
         response.sendRedirect("/antique/audit/1");
     }
@@ -55,7 +58,7 @@ public class AuditController {
     //审核人员复核
     @RequestMapping("/antique/audit/recheck31")
     public void recheck31(String recheckBol, String antique_number, HttpServletResponse response) throws IOException{
-        System.out.println(recheckBol+"   "+antique_number);
+        logger.info(recheckBol+"   "+antique_number);
         if(recheckBol.equals("yes"))
             auditService.updateCheckorYes(Integer.valueOf(antique_number));
         else if(recheckBol.equals("no"))

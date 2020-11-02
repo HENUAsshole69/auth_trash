@@ -9,6 +9,8 @@ import com.antique.demo.bean.CheckSpecialist;
 import com.antique.demo.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,7 @@ public class Audit6Controller {
     AuditSpecialistService auditSpecialistService;
     final
     AuditCertificateService auditCertificateService;
+    Logger logger = LoggerFactory.getLogger(Audit6Controller.class);
     final
     ImageUploadService imageUploadService;
     @Autowired
@@ -101,7 +104,7 @@ public class Audit6Controller {
     }
     @RequestMapping("/antique/audit/recheck61")
     public void recheck61(String recheckBol,int antique_number,String reason,HttpServletResponse response) throws IOException{
-            System.out.println(recheckBol+" "+reason);
+            logger.info(recheckBol+" "+reason);
         if(recheckBol.equals("no"))
             auditCertificateService.updateCertificateReason(recheckBol,antique_number,reason);
         else if(recheckBol.equals("yes")){

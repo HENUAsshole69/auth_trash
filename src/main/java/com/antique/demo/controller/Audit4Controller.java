@@ -10,6 +10,8 @@ import com.antique.demo.service.BrowseService;
 import com.antique.demo.service.ImageUploadService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,7 @@ public class Audit4Controller {
     AuditService auditService;
     final
     AuditSpecialistService auditSpecialistService;
+    Logger logger = LoggerFactory.getLogger(Audit4Controller.class);
     final
     ImageUploadService imageUploadService;
 @Autowired
@@ -89,7 +92,7 @@ public class Audit4Controller {
     //文物局专家审核
     @RequestMapping("/antique/audit4_1/specialistCheck")
     public void reCheck4_1_1(CheckSpecialist checkSpecialist, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
-        System.out.println(checkSpecialist);
+
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
             String newFileName = imageUploadService.uploadImg(uploadfile);
             checkSpecialist.setAntique_aspecialist_img(newFileName);
@@ -104,7 +107,7 @@ public class Audit4Controller {
     //艺术品专家审核
     @RequestMapping("/antique/audit4_1_1/specialistCheck")
     public void reCheck4_1_11(CheckSpecialist checkSpecialist, @RequestParam("uploadfile") MultipartFile uploadfile, HttpServletResponse response) throws IOException {
-        System.out.println(checkSpecialist);
+
             if(uploadfile!=null&&!uploadfile.isEmpty()) {
             String newFileName = imageUploadService.uploadImg(uploadfile);
             checkSpecialist.setAntique_tspecialist_img(newFileName);
@@ -138,7 +141,7 @@ public class Audit4Controller {
             auditService.updateCheckStatus(Integer.valueOf(antique_number));
         }
         else{
-            System.out.println(reason);
+            logger.info(reason);
             auditSpecialistService.updateResCheckNo(recheckBol,antique_number,reason);
         }
 
