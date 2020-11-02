@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.BrowseMapper">
+    <select id="selectAntique" resultType="com.antique.demo.bean.Antique">
+        SELECT * from antique_list
+    </select>
+    <select id="selectVagueAntique" parameterType="String" resultType="com.antique.demo.bean.Antique">
+        SELECT * from antique_list where antique_name like concat('%',#{UserOrAntiqueName},'%')
+        or antique_users like concat('%',#{UserOrAntiqueName},'%')
+    </select>
+    <select id="selectAntiqueById" resultType="com.antique.demo.bean.Antique" parameterType="Integer">
+        SELECT * from antique_list where antique_number = #{antique_number}
+    </select>
+
+    <insert id="insertNewList">
+        insert into antique_list(antique_number,antique_name,antique_kind,antique_info,antique_details,antique_time,antique_intact,antique_authenticate,antique_form,antique_img,antique_bePeople)
+        values(#{antique_number},#{antique_name},#{antique_kind},#{antique_info},#{antique_details},#{antique_time},#{antique_intact},#{antique_authenticate},#{antique_form},#{antique_img},'个体');
+        <selectKey resultType="int" keyProperty="antique_id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+
+    <insert id="insertNewList2" useGeneratedKeys="true">
+        insert into antique_list(antique_number,antique_name,antique_info,antique_details,antique_time,antique_intact,antique_authenticate,antique_form,antique_img,antique_bePeople)
+        values(#{antique_number},#{antique_name},#{antique_info},#{antique_details},#{antique_time},#{antique_intact},#{antique_authenticate},#{antique_form},#{antique_img},'企业');
+        <selectKey resultType="int" keyProperty="antique_id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+</mapper>

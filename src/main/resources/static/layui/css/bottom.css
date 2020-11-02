@@ -1,0 +1,133 @@
+			.big{
+				position: absolute;
+				height: 200px;
+				top:68%;
+				left: 12%;
+			}
+			.first{
+				margin-left: 80px;
+			}
+			.local{
+				position: absolute;
+				width: 250px;
+			}
+			.local1{
+				top: 0px;
+				left: 370px;
+			}
+			.local2{
+				top: 0px;
+				left: 630px;
+			}
+			.local3{
+				top: 0px;
+				left: 890px;
+			}
+			.local4{
+				text-align: center;
+				top: 0px;
+				left: 1070px;
+			}
+			.local5{
+				letter-spacing: 2px;
+				position: absolute;
+				width: 1366px;
+				text-align: center;
+				font-size: 12px;
+				color: gray;
+				margin-top: 50px;
+				line-height: 20px;
+			}
+			.float{
+				position: absolute;
+				top: 36px;
+				left: 100px;
+			}
+			.img{
+				float: left;
+				border-radius: 100%;
+			}
+			.p1{
+				color: deepskyblue;
+				font-size: 18px;
+				margin-top: 10px;
+				border-bottom: 15px;
+			}
+			.p1_fu{
+				color: orangered;
+				font-size: 18px;
+				margin-top: 15px;
+			}
+			.p2{
+				color: gray;
+				font-size: 13px;
+				margin-top: 5px;
+				margin-left: 30px;
+			}
+			.font{
+				color: gray;
+				margin-top: 20px;
+				font-size: 11px;
+			}
+			dl dt{
+				margin-top: 8px;
+				font-size: 11px;
+			}
+			a:link{
+				color: gray;
+				text-decoration: none;
+			}
+			dl dt a:hover{
+				color: gray;
+				text-decoration: none;	
+			}
+			a:active{
+				text-decoration: none;
+			}
+			dl dt a:visited{
+				color: gray;
+				text-decoration: none;
+			}
+			#d1:after{
+				content: "";
+				width: 1px;
+				height: 150px;
+				background: grey;
+				display: inline-block;
+				position: absolute;
+				top: 18px;
+				left: 328px;
+			}
+			#d2:after{
+				content: "";
+				width: 1px;
+				height: 150px;
+				background: grey;
+				display: inline-block;
+				position: absolute;
+				top: 18px;
+				left: 220px;
+				
+			}
+			#d3:after{
+				content: "";
+				width: 1px;
+				height: 150px;
+				background: grey;
+				display: inline-block;
+				position: absolute;
+				top: 18px;
+				left: 225px;
+				
+			}
+			#d4:after{
+				content: "";
+				width: 1px;
+				height: 150px;
+				background: grey;
+				display: inline-block;
+				position: absolute;
+				top: 15px;
+				left: 185px;
+				
+			}

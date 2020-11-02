@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.AuditMapper">
+    <select id="selectChecks" resultType="com.antique.demo.bean.Check" >
+        SELECT * from antique_check
+    </select>
+    <select id="selectReCheckById" resultType="com.antique.demo.bean.Check" >
+        SELECT * from antique_check where antique_number_c=#{antique_number}
+    </select>
+    <!--通过文物复核-->
+    <update id="updateReCheckInfo">
+        update antique_check set antique_status=antique_status+1,
+        antique_recheck='true' where antique_number_c=#{antique_number}
+    </update>
+    <!--拒绝文物复核-->
+    <update id="updateReCheckInfoNo">
+        update antique_check set antique_status=antique_status-1,
+        antique_recheck='false' where antique_number_c=#{antique_number}
+    </update>
+    <!--通过文物初步鉴定-->
+    <update id="updateCheckSpecialist" parameterType="com.antique.demo.bean.Check">
+        update antique_check set antique_status=antique_status+1,
+        antique_specialistName=#{antique_specialistName},antique_specialistNotes=#{antique_specialistNotes},
+        antique_specialistTime=#{antique_specialistTime},antique_specialistImg=#{antique_specialistImg}
+        where antique_number_c=#{antique_number_c}
+    </update>
+    <!--通过文物审核人员复核-->
+    <update id="updateCheckorYes" parameterType="Integer">
+        update antique_check set antique_status=antique_status+1,antique_checkor = 'true'
+        where antique_number_c=#{antique_number_c}
+    </update>
+    <update id="updateCheckorNo" parameterType="Integer">
+        update antique_check set antique_status=antique_status-1,antique_checkor = 'false',
+        antique_specialistName = null,antique_specialistNotes = null,antique_specialistTime = null,antique_specialistImg = null
+        where antique_number_c=#{antique_number_c}
+    </update>
+    <update id="updateCheckStatus" parameterType="Integer">
+        update antique_check set antique_status=antique_status+1 where antique_number_c=#{antique_number_c}
+    </update>
+
+    <insert id="insertNewCheck" useGeneratedKeys="true">
+        insert into antique_check(antique_number_c,antique_status,antique_bstatus)
+        values(#{antique_number_c},0,'false');
+    </insert>
+</mapper>

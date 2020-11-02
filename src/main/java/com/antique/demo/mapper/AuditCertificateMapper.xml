@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.AuditCertificateMapper">
+    <select id="selectCertificate" resultType="com.antique.demo.bean.Certificate" >
+        SELECT * from antique_certificate
+    </select>
+    <select id="selectCertificateById" resultType="com.antique.demo.bean.Certificate" >
+        SELECT * from antique_certificate where antique_number_ce=#{antique_number_ce}
+    </select>
+    <update id="updateCertificate">
+        UPDATE antique_certificate set antique_certificate_id=#{antique_certificate_id},
+         antique_certificate_img=#{antique_certificate_img} where antique_number_ce=#{antique_number_ce}
+    </update>
+    <update id="updateCertificateReason">
+        UPDATE antique_certificate set antique_certificate_checkor=#{recheckBol},
+         antique_certificate_reason=#{reason},antique_certificate_id=null,antique_certificate_img=null
+         where antique_number_ce=#{antique_number}
+    </update>
+    <update id="updateCertificateReasonYes">
+        UPDATE antique_certificate set antique_certificate_checkor=#{recheckBol}
+        where antique_number_ce=#{antique_number}
+    </update>
+    <!--第八步业务信息录入-->
+    <update id="updateCertificateInfo" parameterType="com.antique.demo.bean.Certificate">
+        UPDATE antique_certificate set antique_certificate_time=#{antique_certificate_time},
+         antique_certificate_business=#{antique_certificate_business},antique_certificate_businessman=#{antique_certificate_businessman},
+         antique_certificate_price=#{antique_certificate_price},antique_certificate_file=#{antique_certificate_file},antique_certificate_insert='yes'
+         where antique_number_ce=#{antique_number_ce}
+    </update>
+    <update id="updateCertificateInfoReason">
+        UPDATE antique_certificate set antique_certificate_checkor8=#{recheckBol},
+         antique_certificate_reason8=#{reason},antique_certificate_time=null,antique_certificate_time=null
+         ,antique_certificate_businessman=null,antique_certificate_price=null,antique_certificate_file=null
+         where antique_number_ce=#{antique_number}
+    </update>
+    <update id="updateCertificateInfoReasonYes">
+        UPDATE antique_certificate set antique_certificate_checkor8=#{recheckBol}
+        where antique_number_ce=#{antique_number}
+    </update>
+
+    <insert id="insertNewCertificate" useGeneratedKeys="true">
+        insert into antique_certificate(antique_number_ce) values(#{antique_number_ce});
+    </insert>
+</mapper>

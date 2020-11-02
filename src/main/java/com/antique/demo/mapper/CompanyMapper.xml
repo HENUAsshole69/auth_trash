@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.CompanyMapper">
+    <select id="selectCompanyById" resultType="com.antique.demo.bean.Company" parameterType="Integer">
+        SELECT * from applicant_company where antique_number = #{antique_number}
+    </select>
+
+    <insert id="insertNewCompany" useGeneratedKeys="true">
+        insert into applicant_company(antique_number,applicant_name,applicant_buscode,applicant_loginadress,applicant_represent,applicant_legal
+        ,applicant_capital,applicant_reperson,applicant_rejob,applicant_phone,applicant_email,applicant_max,applicant_code,applicant_address)
+        values(#{antique_number},#{applicant_name},#{applicant_buscode},#{applicant_loginadress},#{applicant_represent},#{applicant_legal}
+        ,#{applicant_capital},#{applicant_reperson},#{applicant_rejob},#{applicant_phone},#{applicant_email},#{applicant_max},#{applicant_code},#{applicant_address});
+    </insert>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.AuditSpecialistMapper">
+    <select id="selectAllSpecialistCheck" resultType="com.antique.demo.bean.CheckSpecialist">
+        SELECT * from antique_check_double
+    </select>
+    <select id="selectSpecialistCheckById" resultType="com.antique.demo.bean.CheckSpecialist" >
+        SELECT * from antique_check_double where antique_number_d=#{antique_number}
+    </select>
+    <!--文物局专家审核-->
+    <update id="updateSpecialistYes" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_aspecialist_name=#{antique_aspecialist_name},
+        antique_aspecialist_notes=#{antique_aspecialist_notes},antique_aspecialist_time=#{antique_aspecialist_time},
+        antique_aspecialist_img=#{antique_aspecialist_img},antique_kind=#{antique_kind},antique_aspecialist_res='true'
+        where antique_number_d=#{antique_number_d}
+    </update>
+    <update id="updateTSpecialistYes" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_tspecialist_name=#{antique_tspecialist_name},
+        antique_tspecialist_notes=#{antique_tspecialist_notes},antique_tspecialist_time=#{antique_tspecialist_time},
+        antique_tspecialist_img=#{antique_tspecialist_img},antique_kind=#{antique_kind},antique_tspecialist_res='true'
+        where antique_number_d=#{antique_number_d}
+    </update>
+    <update id="updateRSpecialistYes" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_rspecialist_name=#{antique_rspecialist_name},
+        antique_rspecialist_notes=#{antique_rspecialist_notes},antique_rspecialist_time=#{antique_rspecialist_time},
+        antique_rspecialist_img=#{antique_rspecialist_img},antique_kind=#{antique_kind},antique_rspecialist_res='true'
+        where antique_number_d=#{antique_number_d}
+    </update>
+    <update id="updateCheckYes" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_checkor_s=#{recheckBol}
+        where antique_number_d=#{antique_number}
+    </update>
+    <update id="updateCheckNo" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_checkor_s=#{recheckBol}
+        where antique_number_d=#{antique_number}
+    </update>
+    <update id="updateResCheckYes" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_recheckor=#{recheckBol}
+        where antique_number_d=#{antique_number}
+    </update>
+    <update id="updateResCheckNo" parameterType="com.antique.demo.bean.CheckSpecialist">
+        update antique_check_double set antique_recheckor=#{recheckBol},antique_recheckno_reason=#{antique_recheckno_reason}
+        ,antique_aspecialist_name=null,antique_aspecialist_notes=null,antique_aspecialist_time=null,antique_aspecialist_img=null
+        ,antique_rspecialist_name=null,antique_rspecialist_notes=null,antique_rspecialist_time=null,antique_rspecialist_img=null
+        ,antique_tspecialist_name=null,antique_tspecialist_notes=null,antique_tspecialist_time=null,antique_tspecialist_img=null
+        ,antique_aspecialist_res='false',antique_rspecialist_res='false',antique_tspecialist_res='false',antique_kind=null,antique_checkor_s='no'
+        where antique_number_d=#{antique_number}
+    </update>
+
+    <insert id="insertNewSpecialist" useGeneratedKeys="true">
+        insert into antique_check_double(antique_number_d) values(#{antique_number_d});
+    </insert>
+</mapper>

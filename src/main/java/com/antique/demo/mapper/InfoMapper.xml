@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.InfoMapper">
+    <insert id="insertInfo">
+        insert into antique_info(antique_number_in,antique_info1,antique_info2,antique_info3,antique_info4,antique_infoImg)
+        values(#{antique_number_in},#{antique_info1},#{antique_info2},#{antique_info3},#{antique_info4},#{antique_infoImg});
+        <selectKey resultType="int" keyProperty="antique_id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+
+    <insert id="insertNewInfo" useGeneratedKeys="true">
+        insert into antique_info(antique_number_in) values(#{antique_number_in});
+    </insert>
+</mapper>

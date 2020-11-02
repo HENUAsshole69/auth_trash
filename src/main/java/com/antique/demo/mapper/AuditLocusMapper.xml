@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.AuditLocusMapper">
+    <select id="selectLocus" resultType="com.antique.demo.bean.Locus" >
+        SELECT * from antique_locus
+    </select>
+    <select id="selectLocusById" resultType="com.antique.demo.bean.Locus" >
+        SELECT * from antique_locus where antique_number_lu=#{antique_number_lu}
+    </select>
+    <update id="updateLocusInfo" parameterType="com.antique.demo.bean.Locus">
+        UPDATE antique_locus set antique_locus_text1=#{antique_locus_text1},antique_locus_text2=#{antique_locus_text2}
+        ,antique_locus_text3=#{antique_locus_text3},antique_locus_text4=#{antique_locus_text4},antique_locus_text5=#{antique_locus_text5}
+        ,antique_locus_text6=#{antique_locus_text6},antique_locus_text7=#{antique_locus_text7},antique_locus_text8=#{antique_locus_text8}
+        ,antique_locus_submit='yes',antique_locus_textnum=#{antique_locus_textnum} where antique_number_lu=#{antique_number_lu}
+    </update>
+    <update id="updateLocusImgInfo" parameterType="com.antique.demo.bean.Locus">
+        UPDATE antique_locus set antique_locus_img1=#{antique_locus_img1},antique_locus_img2=#{antique_locus_img2}
+        ,antique_locus_img3=#{antique_locus_img3},antique_locus_img4=#{antique_locus_img4}
+        ,antique_locus_imgnum=#{antique_locus_imgnum},antique_locus_submitImg='yes' where antique_number_lu=#{antique_number_lu}
+    </update>
+    <update id="updateLocusCheckNo">
+        UPDATE antique_locus set antique_locus_img1=null,antique_locus_img2=null
+        ,antique_locus_img3=null,antique_locus_img4=null,antique_locus_text1=null,antique_locus_text2=null
+        ,antique_locus_text3=null,antique_locus_text4=null,antique_locus_text5=null
+        ,antique_locus_text6=null,antique_locus_text7=null,antique_locus_text8=null
+        ,antique_locus_submit=null,antique_locus_textnum=null,antique_locus_imgnum=null
+        ,antique_locus_recheckor='no',antique_locus_reason=#{reason}
+        ,antique_locus_submitImg=null,antique_locus_submitImg=null where antique_number_lu=#{antique_number_lu}
+    </update>
+    <update id="updateLocusCheckYes">
+        UPDATE antique_locus set antique_locus_recheckor='yes' where antique_number_lu=#{antique_number_lu}
+    </update>
+
+    <insert id="insertNewLocus"  useGeneratedKeys="true">
+        insert into antique_locus(antique_number_lu) values(#{antique_number_lu});
+    </insert>
+</mapper>

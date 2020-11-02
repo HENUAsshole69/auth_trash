@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.UserMapper">
+    <select id="selectAllUser" resultType="com.antique.demo.bean.User" >
+        SELECT * from antique_user
+    </select>
+    <select id="selectUserByUsername" resultType="com.antique.demo.bean.User" >
+        SELECT * from antique_user where user_username = #{user_username}
+    </select>
+    <select id="searchByUsername" resultType="com.antique.demo.bean.User" >
+        SELECT * from antique_user where user_username like concat('%',#{UserOrAntiqueName},'%')
+    </select>
+</mapper>
