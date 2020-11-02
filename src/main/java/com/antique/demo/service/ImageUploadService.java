@@ -10,11 +10,10 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
-public class UploadImageService {
+public class ImageUploadService {
     public String uploadImg(MultipartFile uploadFile) throws IOException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String format = sdf.format(new Date());
-
         //老图片的
         String oldName = uploadFile.getOriginalFilename();
         String newName = UUID.randomUUID() + oldName.substring(oldName.lastIndexOf("."), oldName.length());

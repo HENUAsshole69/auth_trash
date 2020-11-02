@@ -1,9 +1,9 @@
 package com.antique.demo.realm;
 
 import com.antique.demo.bean.User;
+
 import com.antique.demo.service.RoleService;
 import com.antique.demo.service.UserService;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -22,11 +22,11 @@ public class UserRealm extends AuthorizingRealm {
     UserService userService;
     @Autowired
     RoleService roleService;
-    @Override
+
     public String getName() {
         return "UserRealm";
     }
-    @Override
+
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection auth) {
         String username = (String)auth.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -38,7 +38,7 @@ public class UserRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
-    @Override
+
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String username = (String) auth.getPrincipal();
         System.out.println("进入到认证Realm中"+username);

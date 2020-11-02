@@ -5,7 +5,7 @@ import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Company;
 import com.antique.demo.bean.Individual;
 import com.antique.demo.service.*;
-import com.antique.demo.service.UploadImageService;
+import com.antique.demo.service.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +36,9 @@ public class AntiqueCreationController {
     final
     CompanyService companyService;
     final
-    UploadImageService uploadImageService;
+    ImageUploadService imageUploadService;
     @Autowired
-    public AntiqueCreationController(AuditCertificateService auditCertificateService, AuditLocusService auditLocusService, AuditService auditService, AuditSpecialistService auditSpecialistService, BrowseService browseService, InfoService infoService, IndividualService individualService, CompanyService companyService, UploadImageService uploadImageService) {
+    public AntiqueCreationController(AuditCertificateService auditCertificateService, AuditLocusService auditLocusService, AuditService auditService, AuditSpecialistService auditSpecialistService, BrowseService browseService, InfoService infoService, IndividualService individualService, CompanyService companyService, ImageUploadService imageUploadService) {
         this.auditCertificateService = auditCertificateService;
         this.auditLocusService = auditLocusService;
         this.auditService = auditService;
@@ -47,7 +47,7 @@ public class AntiqueCreationController {
         this.infoService = infoService;
         this.individualService = individualService;
         this.companyService = companyService;
-        this.uploadImageService = uploadImageService;
+        this.imageUploadService = imageUploadService;
     }
 
     @RequestMapping("/antique/info")
@@ -55,7 +55,7 @@ public class AntiqueCreationController {
     public String newAntique(Antique antique,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         this.antique =  antique;
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = uploadImageService.uploadImg(uploadfile);
+            String newFileName = imageUploadService.uploadImg(uploadfile);
             antique.setAntique_img(newFileName);
         }
         return JSON.toJSONString("success");

@@ -4,7 +4,7 @@ package com.antique.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.antique.demo.bean.*;
 import com.antique.demo.service.*;
-import com.antique.demo.service.UploadImageService;
+import com.antique.demo.service.ImageUploadService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +34,15 @@ public class Audit5Controller {
     final
     AuditLocusService locusService;
     final
-    UploadImageService uploadImageService;
+    ImageUploadService imageUploadService;
     @Autowired
-    public Audit5Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, AuditLocusService locusService, UploadImageService uploadImageService) {
+    public Audit5Controller(BrowseService browseService, AuditService auditService, AuditSpecialistService auditSpecialistService, AuditCertificateService auditCertificateService, AuditLocusService locusService, ImageUploadService imageUploadService) {
         this.browseService = browseService;
         this.auditService = auditService;
         this.auditSpecialistService = auditSpecialistService;
         this.auditCertificateService = auditCertificateService;
         this.locusService = locusService;
-        this.uploadImageService = uploadImageService;
+        this.imageUploadService = imageUploadService;
     }
 
     //证书录入首页
@@ -109,7 +109,7 @@ public class Audit5Controller {
     public String bit_trialImgInfo(Locus locus,@RequestParam("uploadfile") MultipartFile uploadfile[]) throws IOException {
     for(int i = 0;i<uploadfile.length;i++){
         if(uploadfile[i]!=null&&!uploadfile[i].isEmpty()) {
-                String newFileName = uploadImageService.uploadImg(uploadfile[i]);
+                String newFileName = imageUploadService.uploadImg(uploadfile[i]);
                 if(i == 0)
                     locus.setAntique_locus_img1(newFileName);
                 else if(i == 1)

@@ -5,7 +5,7 @@ import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Check;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.BrowseService;
-import com.antique.demo.service.UploadImageService;
+import com.antique.demo.service.ImageUploadService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,12 @@ public class Audit3Controller {
     final
     AuditService auditService;
     final
-    UploadImageService uploadImageService;
+    ImageUploadService imageUploadService;
     @Autowired
-    public Audit3Controller(BrowseService browseService, AuditService auditService, UploadImageService uploadImageService) {
+    public Audit3Controller(BrowseService browseService, AuditService auditService, ImageUploadService imageUploadService) {
         this.browseService = browseService;
         this.auditService = auditService;
-        this.uploadImageService = uploadImageService;
+        this.imageUploadService = imageUploadService;
     }
 
     //初步鉴定页面首页
@@ -60,7 +60,7 @@ public class Audit3Controller {
     @ResponseBody
     public String reCheck3(Check check,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
         if(uploadfile!=null&&!uploadfile.isEmpty()) {
-            String newFileName = uploadImageService.uploadImg(uploadfile);
+            String newFileName = imageUploadService.uploadImg(uploadfile);
             System.out.println(newFileName);
             check.setAntique_specialistImg(newFileName);
         }
