@@ -70,7 +70,7 @@ public class AntiqueCreationController {
         auditSpecialistService.insertNewSpecialist(antique.getAntique_number());
         browseService.insertNewList(antique);
         individualService.insertNewIndividual(individual);
-        response.sendRedirect("/index/1");
+        response.sendRedirect("/browse/1");
     }
     @RequestMapping("/antique/newAntique/company")
     @ResponseBody
@@ -82,6 +82,6 @@ public class AntiqueCreationController {
         auditSpecialistService.insertNewSpecialist(antique.getAntique_number());
         browseService.insertNewList2(antique);
         companyService.insertNewCompany(company);
-        response.sendRedirect("/index/1");
+        response.sendRedirect("/browse/1");
     }
 }

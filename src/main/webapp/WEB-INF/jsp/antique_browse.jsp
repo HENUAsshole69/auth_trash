@@ -214,16 +214,16 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
 	</head>
 	<body>
-		<jsp:include page="index.jsp" />
+
 		<div id="div"></div>
-		<div style="width: 1200px; position: absolute; top: 45px;left: 205px;">
-			<form class="layui-form" action="${pageContext.request.contextPath}/index/1">
+		<div >
+			<form class="layui-form" action="${pageContext.request.contextPath}/browse/1">
 				<i class="layui-icon" style="position: relative; top: 30px;left: 370px;">&#xe615;</i>  
 				<input type="text" name="UserOrAntiqueName" style="width: 400px;" lay-verify="required" placeholder="搜索用户名或文物名称进行搜索" autocomplete="off" class="layui-input">
 				<button type="submit" class="layui-btn" style="position: relative;top:-38px;left: 410px;">立即搜索</button>
 			</form>
 		</div>
-		<div style="width: 1340px; position: absolute; top:100px;left: 200px;">
+		<div >
 			<table class="layui-table">
 			  <colgroup>
 			    <col width="250">
@@ -265,23 +265,23 @@
 			</div><br/>
 			<ul class="pagination">
 				<c:if test="${!pageInfo.isFirstPage}">
-					<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/index/1">首页</a></li>
-					<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/index/${pageInfo.prePage}">上一页</a></li>
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/browse/1">首页</a></li>
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/browse/${pageInfo.prePage}">上一页</a></li>
 				</c:if>
 				<!-- 中间要显示的页数 -->
 				<c:forEach items="${pageInfo.navigatepageNums}" var="navigatepageNum">
 					<c:if test="${navigatepageNum==pageInfo.pageNum}">
-						<li  class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/index/${navigatepageNum}">${navigatepageNum}</a></li>
+						<li  class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/browse/${navigatepageNum}">${navigatepageNum}</a></li>
 					</c:if>
 					<c:if test="${navigatepageNum!=pageInfo.pageNum}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/index/${navigatepageNum}">${navigatepageNum}</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/browse/${navigatepageNum}">${navigatepageNum}</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${!pageInfo.isLastPage}">
 					<li class="page-item"><a class="page-link"
-											 href="<%=request.getContextPath() %>/index/${pageInfo.nextPage }">下一页</a></li>
+											 href="<%=request.getContextPath() %>/browse/${pageInfo.nextPage }">下一页</a></li>
 					<li class="page-item"><a class="page-link"
-											 href="<%=request.getContextPath() %>/index/${pageInfo.lastPage}">尾页</a></li>
+											 href="<%=request.getContextPath() %>/browse/${pageInfo.lastPage}">尾页</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -292,7 +292,7 @@
 <script>
 	function certificateBtn(antique_number) {
 		$.ajax({
-			url: '${pageContext.request.contextPath}/index/certificate',
+			url: '${pageContext.request.contextPath}/browse/certificate',
 			type: 'POST',
 			data:"antique_number="+antique_number,
 			dataType:'json',
@@ -350,7 +350,7 @@
 	<!--个体/企业窗口-->
 	function CompanyDiv(antique_number){
 		$.ajax({
-			url: '${pageContext.request.contextPath}/index/bePeopleKind',
+			url: '${pageContext.request.contextPath}/browse/bePeopleKind',
 			type: 'POST',
 			data:"antique_number="+antique_number,
 			dataType:'json',

@@ -59,7 +59,7 @@ public class ShiroConfig {
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index/1");
+        shiroFilterFactoryBean.setSuccessUrl("/browse/1");
         //添加Shiro内置过滤器
         /*
          *Shiro内置过滤器，可以实现权限相关的拦截
@@ -74,7 +74,7 @@ public class ShiroConfig {
         //设置退出过滤器
         filterChainDefinitionMap.put("/loginOut", "logout");
         //设置请求放行
-        filterChainDefinitionMap.put("/index/1", "anon");
+        filterChainDefinitionMap.put("/browse/1", "anon");
         filterChainDefinitionMap.put("/SCaptchaServlet", "anon");
         filterChainDefinitionMap.put("/loginValidate", "anon");
         filterChainDefinitionMap.put("/ifLogin", "anon");

@@ -36,6 +36,10 @@ public class LoginController {
     public String getConCode(){
         return conCode;
     }
+    @RequestMapping("/")
+    public String root(){
+        return "index";
+    }
     //跳转到登录页面
     @RequestMapping("/antique/login")
     public String login(){
@@ -56,7 +60,7 @@ public class LoginController {
             try {
                 if (jspCode.equalsIgnoreCase(getConCode())){
                     subject.login(auth);
-                    response.sendRedirect("/index/1");
+                    response.sendRedirect("/");
                     return null;//跳转到index页面
                 }
                 else {

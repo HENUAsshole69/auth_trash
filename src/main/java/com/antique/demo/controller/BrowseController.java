@@ -32,15 +32,15 @@ public class BrowseController {
     IndividualService individualService;
     @Autowired
     AuditCertificateService auditCertificateService;
-    @RequestMapping("/index")
+    @RequestMapping("/browse")
     public void indexPage(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/index/1");
+        response.sendRedirect("/browse/1");
     }
-    @RequestMapping("/index/{pageNum}")
+    @RequestMapping("/browse/{pageNum}")
     public String indexPage1(@PathVariable("pageNum") int pageNum, Model model,String UserOrAntiqueName){
         PageHelper.startPage(pageNum, 4);
         List<Antique> antiques = null;
-        if(UserOrAntiqueName == null || UserOrAntiqueName == "")
+        if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
             antiques = browseService.selectAntique();
         else
             antiques = browseService.selectVagueAntique(UserOrAntiqueName);
@@ -49,14 +49,14 @@ public class BrowseController {
         model.addAttribute("pageInfo", pageInfo);
         return "antique_browse";
     }
-    @RequestMapping("/index/certificate")
+    @RequestMapping("/browse/certificate")
     @ResponseBody
     public String certificateInfo(String antique_number,Model model){
         Certificate certificate = auditCertificateService.selectCertificateById(Integer.valueOf(antique_number));
         model.addAttribute("certificate",certificate);
         return JSON.toJSONString(certificate);
     }
-    @RequestMapping("/index/bePeopleKind")
+    @RequestMapping("/browse/bePeopleKind")
     @ResponseBody
     public String bePeopleKind(String antique_number,Model model){
         Antique antique = browseService.selectAntiqueById(Integer.valueOf(antique_number));

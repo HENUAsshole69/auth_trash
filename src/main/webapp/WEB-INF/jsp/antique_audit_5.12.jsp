@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
 	</head>
 	<body>
-		<jsp:include page="index.jsp" />
+
 		<div id="div" style="height: 800px;">
 			<div class="antiqueInfo" style="position:relative;left: 190px;top: -495px;width:600px;">
 				<form class="layui-form" action="" onsubmit="">

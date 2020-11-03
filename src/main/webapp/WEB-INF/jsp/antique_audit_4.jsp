@@ -12,9 +12,9 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
 	</head>
 	<body>
-		<jsp:include page="index.jsp" />
+
 		<div id="div"></div>
-		<div style="width: 1200px; position: absolute; top: 45px;left: 205px;">
+		<div >
 			<form class="layui-form" action="${pageContext.request.contextPath}/antique/audit4/1">
 				<i class="layui-icon" style="position: relative; top: 30px;left: 370px;">&#xe615;</i>
 				<input type="text" name="UserOrAntiqueName" style="width: 400px;" lay-verify="required" placeholder="搜索用户名或文物名称进行搜索" autocomplete="off" class="layui-input">
@@ -22,7 +22,7 @@
 			</form>
 
 		</div>
-		<div style="width: 1340px; position: absolute; top:100px;left: 200px;">
+		<div >
 			<table class="layui-table">
 			  <colgroup>
 			    <col width="250">

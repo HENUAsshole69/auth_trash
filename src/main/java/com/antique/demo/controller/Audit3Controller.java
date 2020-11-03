@@ -74,8 +74,8 @@ public class Audit3Controller {
     //专家初审结果显示
     @RequestMapping("/antique/audit3/specialist")
     public String reCheck3(String antique_number,Model model) {
-        Antique antique = browseService.selectAntiqueById(Integer.valueOf(antique_number));
-        Check check = auditService.selectReCheckById(Integer.valueOf(antique_number));
+        Antique antique = browseService.selectAntiqueById(Integer.parseInt(antique_number));
+        Check check = auditService.selectReCheckById(Integer.parseInt(antique_number));
         model.addAttribute("antique",antique);
         model.addAttribute("check",check);
         return "antique_audit_3.1";
