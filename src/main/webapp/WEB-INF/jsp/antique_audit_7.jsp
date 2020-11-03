@@ -168,7 +168,7 @@
 							  <button type="button" class="layui-btn layui-btn-warm layui-btn-sm" onclick="certificateInfoInsert('${antiques.antique_number}','${antiques.antique_status}')">录入业务</button>
 						  </c:if>
 						  <c:if test="${antiques.antique_certificate_insert == 'yes'}">
-							  <button type="button" class="layui-btn layui-btn-warm layui-btn-sm" onclick="selectcertificateInfoInsert('${antiques.antique_certificate_time}','${antiques.antique_certificate_business}','${antiques.antique_certificate_businessman}','${antiques.antique_certificate_price}','${antiques.antique_certificate_file}')">查看业务</button>
+							  <button type="button" class="layui-btn layui-btn-warm layui-btn-sm" onclick="selectCertificateInfoInsert('${antiques.antique_certificate_time}','${antiques.antique_certificate_business}','${antiques.antique_certificate_businessman}','${antiques.antique_certificate_price}','${antiques.antique_certificate_file}')">查看业务</button>
 						  </c:if>
 							<c:if test="${antiques.antique_recheckor == 'yes'}">
 							  <button type="button" class="layui-btn layui-btn-disabled layui-btn-sm">已通过复核</button>
@@ -349,7 +349,7 @@
 			},
 		});
 	}
-	function selectcertificateInfoInsert(time,business,businessman,price,file) {
+	function selectCertificateInfoInsert(time,business,businessman,price,file) {
 		$('.antique_certificate_time').val(time);
 		$('.antique_certificate_business').html(business);
 		$('.antique_certificate_businessman').val(businessman);
