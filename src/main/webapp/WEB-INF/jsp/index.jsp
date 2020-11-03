@@ -311,17 +311,17 @@
                             if(pageName.equals("browse"))
                                 pagePath="/browse/1";
                             else if(pageName.equals("audit1"))
-                                pagePath="/audit/1";
+                                pagePath="/antique/audit/1";
                             else if(pageName.equals("audit3"))
-                                pagePath="/audit3/1";
+                                pagePath="/antique/audit3/1";
                             else if(pageName.equals("audit4"))
-                                pagePath="/audit4/1";
+                                pagePath="/antique/audit4/1";
                             else if(pageName.equals("audit5"))
-                                pagePath="/audit5/1";
+                                pagePath="/antique/audit5/1";
                             else if(pageName.equals("audit6"))
-                                pagePath="/audit6/1";
+                                pagePath="/antique/audit6/1";
                             else if(pageName.equals("audit7"))
-                                pagePath="/audit7/1";
+                                pagePath="/antique/audit7/1";
                         }
                         else{
                             pageName = "browse";
@@ -330,25 +330,25 @@
                     %>
                     <dd><a onclick="newInfo()">新建 <i class="layui-icon" style="font-size:20px;margin-left: 100px;">&#xe654;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=browse">浏览 <i class="layui-icon"
+                    <dd><a href="/?page=browse">浏览 <i class="layui-icon"
                                                                                    style="font-size:20px;margin-left: 100px;">&#xe705;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit1">文物复核 <i class="layui-icon"
+                    <dd><a href="/?page=audit1">文物复核 <i class="layui-icon"
                                                                                              style="font-size:20px;margin-left: 72px;">&#xe6b2;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit3">初步鉴定 <i class="layui-icon"
+                    <dd><a href="/?page=audit3">初步鉴定 <i class="layui-icon"
                                                                                               style="font-size:20px;margin-left: 72px;">&#xe657;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit4">多维鉴定 <i class="layui-icon"
+                    <dd><a href="/?page=audit4">多维鉴定 <i class="layui-icon"
                                                                                                style="font-size:20px;margin-left: 70px;">&#xe656;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit5">位点录入 <i class="layui-icon"
+                    <dd><a href="/?page=audit5">位点录入 <i class="layui-icon"
                                                                                                style="font-size:20px;margin-left: 70px;">&#xe857;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit6">证书信息 <i class="layui-icon"
+                    <dd><a href="/?page=audit6">证书信息 <i class="layui-icon"
                                                                                                style="font-size:20px;margin-left: 70px;">&#xe663;</i></a>
                     </dd>
-                    <dd><a href="index.jsp?page=audit7">业务录入 <i class="layui-icon"
+                    <dd><a href="/?page=audit7">业务录入 <i class="layui-icon"
                                                                                                style="font-size:20px;margin-left: 70px;">&#xe67d;</i></a>
                     </dd>
                 </dl>
@@ -358,6 +358,14 @@
                                           style="font-size:20px;margin-right: 10px;">&#xe66f;</i>管理</a>
                 <dl class="layui-nav-child">
                     <shiro:hasRole name="超级管理员">
+                        <%
+                            //获取url中的参数值
+                            if (!request.getParameterMap().isEmpty()){
+                                pageName = request.getParameter("page");
+                                if(pageName.equals("manage"))
+                                    pagePath="/antique/user/1";
+                            }
+                        %>
                         <dd><a href="${pageContext.request.contextPath}/antique/user/1">用户管理 <i class="layui-icon"
                                                                                                 style="font-size:20px;margin-left: 70px;">&#xe612;</i></a>
                         </dd>
