@@ -322,6 +322,8 @@
                                 pagePath="/antique/audit6/1";
                             else if(pageName.equals("audit7"))
                                 pagePath="/antique/audit7/1";
+                            else if(pageName.equals("manage"))
+                                pagePath="/antique/user/1";
                         }
                         else{
                             pageName = "browse";
@@ -366,7 +368,7 @@
                                     pagePath="/antique/user/1";
                             }
                         %>
-                        <dd><a href="${pageContext.request.contextPath}/antique/user/1">用户管理 <i class="layui-icon"
+                        <dd><a href="/?page=manage">用户管理 <i class="layui-icon"
                                                                                                 style="font-size:20px;margin-left: 70px;">&#xe612;</i></a>
                         </dd>
                     </shiro:hasRole>
