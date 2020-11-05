@@ -57,7 +57,7 @@ public class Audit7Controller {
             List<Antique> ans = new ArrayList<>();
             String antique_kind = "非文物非艺术品";
             int antique_count = 0;
-            if(UserOrAntiqueName == null || UserOrAntiqueName == "")
+            if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
                 antiques = browseService.selectAntique();
             else//查询
                 antiques = browseService.selectVagueAntique(UserOrAntiqueName);

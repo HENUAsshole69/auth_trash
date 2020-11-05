@@ -44,7 +44,7 @@ public class Audit3Controller {
         public String indexPage3(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
             PageHelper.startPage(pageNum, 4);
             List<Antique> antiques = null;
-            if(UserOrAntiqueName == null || UserOrAntiqueName == "")
+            if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
                 antiques = browseService.selectAntique();
             else//查询
                 antiques = browseService.selectVagueAntique(UserOrAntiqueName);

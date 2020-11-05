@@ -50,7 +50,7 @@ public class Audit4Controller {
             List<Antique> antiques = null;
             List<CheckSpecialist> checkSpecialists = auditSpecialistService.selectAllSpecialistCheck();
             PageHelper.startPage(pageNum, 4);
-            if(UserOrAntiqueName == null || UserOrAntiqueName == "")
+            if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
                 antiques = browseService.selectAntique();
             else//查询
                 antiques = browseService.selectVagueAntique(UserOrAntiqueName);

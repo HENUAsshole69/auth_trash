@@ -33,4 +33,5 @@ public class Antique {
     private String antique_certificate_businessman;
     private String antique_certificate_price;
     private String antique_certificate_file;
+    private WnTInfo wnTInfo;
 }

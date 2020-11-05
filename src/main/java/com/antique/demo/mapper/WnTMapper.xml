@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.antique.demo.mapper.WnTMapper">
+    <select id="getWnt" resultType="com.antique.demo.bean.WnTInfo" >
+        SELECT * from antique_wnt where antique_id = #{antique_id}
+    </select>
+    <insert id="insertWnt" useGeneratedKeys="true">
+        insert into antique_wnt(antique_id,wnt_info,wnt_image) values(#{antique_id},#{wnt_info},#{wnt_pic});
+    </insert>
+</mapper>

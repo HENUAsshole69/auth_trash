@@ -28,7 +28,7 @@ public class UserController {
     public String userPage(@PathVariable("pageNum") int pageNum,Model model, String UserOrAntiqueName){
         PageHelper.startPage(pageNum, 4);
         List<User> userList = null;
-        if(UserOrAntiqueName == null || UserOrAntiqueName == "")
+        if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
             userList =  userService.selectAllUser();
         else
             userList = userService.searchByUsername(UserOrAntiqueName);

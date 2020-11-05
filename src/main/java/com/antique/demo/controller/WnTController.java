@@ -1,9 +1,13 @@
 package com.antique.demo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.antique.demo.bean.Antique;
 import com.antique.demo.bean.Check;
+import com.antique.demo.bean.WnTInfo;
 import com.antique.demo.service.AuditService;
 import com.antique.demo.service.BrowseService;
+import com.antique.demo.service.ImageUploadService;
+import com.antique.demo.service.WnTService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -13,26 +17,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class AuditController {
+public class WnTController {
     final
     BrowseService browseService;
     final
+    WnTService wnTService;
+    final
     AuditService auditService;
+    private ImageUploadService imageUploadService;
     Logger logger = LoggerFactory.getLogger(AuditController.class);
 
-    public AuditController(BrowseService browseService, AuditService auditService) {
+    public WnTController(BrowseService browseService, WnTService wnTService, AuditService auditService, ImageUploadService imageUploadService) {
         this.browseService = browseService;
+        this.wnTService = wnTService;
         this.auditService = auditService;
+        this.imageUploadService = imageUploadService;
     }
 
-    @RequestMapping("/antique/audit/{pageNum}")
-    public String indexPage1(@PathVariable("pageNum") int pageNum, Model model,String UserOrAntiqueName){
+    @RequestMapping("/antique/wnt")
+    @ResponseBody
+    public String newAntique(WnTInfo wnTInfo,@RequestParam("uploadfile") MultipartFile uploadfile) throws IOException {
+        if(uploadfile!=null&&!uploadfile.isEmpty()) {
+            wnTService.newWnt(wnTInfo.getAntique_id(),uploadfile,wnTInfo.getWnt_info());
+        }
+        return JSON.toJSONString("success");
+    }
+
+    @RequestMapping("/antique/wnt/{pageNum}")
+    public String indexPage1(@PathVariable("pageNum") int pageNum, Model model, String UserOrAntiqueName){
         PageHelper.startPage(pageNum, 4);
         List<Antique> antiques = null;
         if(UserOrAntiqueName == null || UserOrAntiqueName.equals(""))
@@ -42,33 +65,11 @@ public class AuditController {
         for(Antique antique:antiques){
             Check check = auditService.selectReCheckById(antique.getAntique_number());
             antique.setAntique_recheck(check.getAntique_recheck());
+            antique.setWnTInfo(wnTService.getWnt(antique.getAntique_id()));
         }
-        PageInfo<Antique> pageInfo = new PageInfo(antiques);
+        PageInfo<Antique> pageInfo = new PageInfo<>(antiques);
         model.addAttribute("antiques",antiques);
         model.addAttribute("pageInfo", pageInfo);
-        return "antique_audit";
-    }
-    @RequestMapping("/antique/audit/recheckYes")
-    public void reCheck(String recheck,HttpServletResponse response) throws IOException {
-        logger.info(recheck);
-        auditService.updateReCheckInfo(Integer.valueOf(recheck));
-        response.sendRedirect("/antique/audit/1");
-    }
-    @RequestMapping("/antique/audit/recheckNo")
-    public void reCheckNo(String recheck,HttpServletResponse response) throws IOException {
-        logger.info(recheck);
-        auditService.updateReCheckInfoNo(Integer.valueOf(recheck));
-        response.sendRedirect("/antique/audit/1");
-    }
-
-    //审核人员复核
-    @RequestMapping("/antique/audit/recheck31")
-    public void recheck31(String recheckBol, String antique_number, HttpServletResponse response) throws IOException{
-        logger.info(recheckBol+"   "+antique_number);
-        if(recheckBol.equals("yes"))
-            auditService.updateCheckorYes(Integer.valueOf(antique_number));
-        else if(recheckBol.equals("no"))
-            auditService.updateCheckorNo(Integer.valueOf(antique_number));
-        response.sendRedirect("/antique/audit3/1");
+        return "antique_wnt";
     }
 }

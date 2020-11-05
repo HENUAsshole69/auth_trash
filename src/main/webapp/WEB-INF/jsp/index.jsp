@@ -324,6 +324,8 @@
                                 pagePath="/antique/audit7/1";
                             else if(pageName.equals("manage"))
                                 pagePath="/antique/user/1";
+                            else if(pageName.equals("wnt"))
+                                pagePath="/antique/wnt/1";
                         }
                         else{
                             pageName = "browse";
@@ -352,6 +354,9 @@
                     </dd>
                     <dd><a href="/?page=audit7">业务录入 <i class="layui-icon"
                                                                                                style="font-size:20px;margin-left: 70px;">&#xe67d;</i></a>
+                    </dd>
+                    <dd><a href="/?page=wnt">磨损信息 <i class="layui-icon"
+                                                        style="font-size:20px;margin-left: 70px;">&#xe67d;</i></a>
                     </dd>
                 </dl>
             </li>
